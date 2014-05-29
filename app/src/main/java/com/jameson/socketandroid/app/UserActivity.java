@@ -50,10 +50,16 @@ public class UserActivity extends ActionBarActivity {
                     User user = new User(user_id);
                     Gson gson = new Gson();
                     String json = gson.toJson(user);
+                    try {
+                        JSONObject jsonObject = new JSONObject(json);
+                        JSONArray jsonArray = new JSONArray();
+                        jsonArray.put(json);
+                        //socketIOClient.emit(json);
+                        socketIOClient.emit("register user", jsonArray);
+                    } catch (JSONException e) {
+                       e.printStackTrace();
+                    }
 
-                    JSONArray jsonArray = new JSONArray();
-                    jsonArray.put(json);
-                    socketIOClient.emit("register user", jsonArray);
                     txtView.setText("CONNECTED");
                     //socketIOClient.emit(json);
                 } else {
@@ -70,6 +76,7 @@ public class UserActivity extends ActionBarActivity {
                 });
 
                 socketIOClient.on("event", new EventCallback() {
+
                     @Override
                     public void onEvent(JSONArray argument, Acknowledge acknowledge) {
                         Log.d("[DATA]", argument.toString());

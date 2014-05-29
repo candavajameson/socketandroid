@@ -48,14 +48,15 @@ public class AgentActivity extends ActionBarActivity {
 
                 if (socketIOClient.isConnected()) {
 
-                    Agent agent = new Agent(agent_id);
+                   /* Agent agent = new Agent(agent_id);
                     Gson gson = new Gson();
                     String json = gson.toJson(agent);
 
                     JSONArray jsonArray = new JSONArray();
                     jsonArray.put(json);
-                    socketIOClient.emit("register user", jsonArray);
-                    //socketIOClient.emit(json);
+                    socketIOClient.emit("register agent", jsonArray);
+                   **/
+                     //socketIOClient.emit(json);
                 }
 
                 socketIOClient.setStringCallback(new StringCallback() {
@@ -78,11 +79,11 @@ public class AgentActivity extends ActionBarActivity {
         });
 
 
-        Button btnSendGeo = (Button)findViewById(R.id.btnSend);
+        Button btnSendGeo = (Button) findViewById(R.id.btnSend);
         btnSendGeo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // EditText editRequestId = (EditText) findViewById(R.id.txtRequest);
+                // EditText editRequestId = (EditText) findViewById(R.id.txtRequest);
                 Random rand = new Random();
                 int randomNum = rand.nextInt((100 - 50) + 1) + 50;
                 Request request = new Request(6, "1233." + randomNum, "27.9273" + randomNum, agent_id);
